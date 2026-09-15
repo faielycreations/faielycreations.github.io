@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Account Dashboard – FaielyCreations</title>
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body class="hidden">
+  <!-- Accessible loading screen -->
+  <div id="loading-screen" aria-hidden="true">
+    <img src="./images/logo.png" alt="FaielyCreations logo loading">
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <img src="./images/logo.png" class="logo" alt="FaielyCreations Logo">
+    </div>
+    
+    <div class="header-center">
+    </div>
+    
+    <div class="header-right">
+      <a href="./account.html" class="account">Account</a>
+    </div>
+    <!-- Mobile dropdown -->
+    <nav id="mobile-menu" class="mobile-menu">
+      <a href="./index.html" class="header-link">Home</a>
+      <a href="./account.html" class="header-link">My Account</a>
+    </nav>
+  </header>
+
+   <!-- LOGIN -->
+  <div id="login-section" class="mode-section fade">
+    <div class="login-container">
+      <h2>Login</h2>
+
+      <label>Email</label>
+      <input id="login-email" type="email">
+
+      <label>Password</label>
+      <div class="password-row">
+        <input id="login-password" type="password">
+        <button type="button" class="small-btn" onclick="togglePassword('login-password')">Show</button>
+      </div>
+
+      <button onclick="login()">Login</button>
+      <p id="login-error" class="error"></p>
+
+      <p class="link" onclick="showForgotMode()">Forgot password?</p>
+      <p class="link" onclick="showCreateMode()">Create account</p>
+    </div>
+  </div>
+
+  <!-- CREATE ACCOUNT -->
+  <div id="create-section" class="mode-section fade">
+    <div class="login-container">
+      <h2>Create Account</h2>
+
+      <label>Email</label>
+      <input id="create-email" type="email">
+
+      <label>Password</label>
+      <div class="password-row">
+        <input id="create-password" type="password" oninput="updateStrength('create-password','create-strength')">
+        <button type="button" class="small-btn" onclick="togglePassword('create-password')">Show</button>
+      </div>
+      <div id="create-strength" class="strength-bar"></div>
+
+      <label>Display Name</label>
+      <input id="create-display" type="text">
+
+      <button id="create-account-btn" onclick="createAccount()">Create Account</button>
+
+      <p id="create-error" class="error"></p>
+      <p class="link" onclick="showLoginMode()">Back to Login</p>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD -->
+  <div id="forgot-section" class="mode-section">
+    <div class="login-container">
+      <h2>Forgot password</h2>
+
+      <label>Email</label>
+      <input id="forgot-email" type="email">
+
+      <button onclick="sendResetEmail()">Send reset link</button>
+      <p class="link" onclick="showLoginMode()">Back to login</p>
+    </div>
+  </div>
+
+  <!-- RESET PASSWORD -->
+  <div id="reset-section" class="mode-section fade">
+    <div class="login-container">
+      <h2>Reset password</h2>
+
+      <label>New password</label>
+      <div class="password-row">
+        <input id="reset-password" type="password" oninput="updateStrength('reset-password','reset-strength')">
+        <button type="button" class="small-btn" onclick="togglePassword('reset-password')">Show</button>
+      </div>
+      <div id="reset-strength" class="strength-bar"></div>
+
+      <button onclick="resetPassword()">Reset password</button>
+      <p class="link" onclick="showLoginMode()">Back to login</p>
+    </div>
+  </div>
+
+  <!-- EMAIL VERIFICATION -->
+  <div id="verify-section" class="mode-section fade">
+    <div class="login-container">
+      <h2>Verify email</h2>
+
+      <label>Email</label>
+      <input id="verify-email" type="email">
+
+      <button onclick="sendVerificationEmail()">Send verification email</button>
+   </div>
+  </div>
+
+  <!-- ACCOUNT DASHBOARD -->
+  <div id="account-section" class="mode-section">
+    <div class="account-layout">
+
+      <aside class="account-sidebar">
+        <h2 class="sidebar-title">My Account</h2>
+
+        <button class="tab-btn" data-tab="profile">Profile</button>
+        <button class="tab-btn" data-tab="security">Security</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </aside>
+
+      <main class="account-content">
+
+        <section id="tab-profile" class="tab-section">
+          <h2>Profile</h2>
+          <label>Email</label>
+          <input id="profile-email">
+          <label>Display name</label>
+          <input id="profile-display">
+          <button onclick="saveProfile()">Save profile</button>
+
+          <section id="tab-addresses" class="tab-section">
+            <h2>Saved addresses</h2>
+            <button onclick="addAddress()">Add new address</button>
+            <div id="address-list"></div>
+          </section>
+          <section id="tab-measurements" class="tab-section">
+            <h2>Measurements</h2>
+            <label>Bust</label><input id="m-bust">
+            <label>Waist</label><input id="m-waist">
+            <label>Hip</label><input id="m-hip">
+            <label>Torso length</label><input id="m-torso">
+            <button onclick="saveMeasurements()">Save measurements</button>
+          </section>
+
+          <section id="tab-delete" class="tab-section danger-zone">
+            <h2>Delete account</h2>
+            <button class="danger-btn" onclick="deleteAccount()">Delete my account</button>
+          </section>
+        </section>
+
+        <section id="tab-security" class="tab-section">
+          <h2>Security</h2>
+          <button onclick="changePassword()">Change password</button>
+          <button onclick="verifyEmail()">Email verification</button>
+          <button onclick="setup2FA()">Set up 2FA</button>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Welcome overlay after account creation -->
+  <div id="welcome-overlay" class="welcome-overlay">
+    <div class="welcome-card">
+      <h2>Welcome to Faiely Creations ✨</h2>
+      <p>Your account has been created. You can now log in and explore.</p>
+      <button onclick="closeWelcome()">Close</button>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+  <script src="./account-frontend.js"></script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <nav class="footer-links">
+      <a href="./index.html">Home</a>
+    </nav>
+    <div class="footer-bottom">
+      <p>© 2026 FaielyCreations L.L.C. </p>
+    </div>
+  </footer>
+</body>
+</html>
+

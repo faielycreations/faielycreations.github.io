@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - FaielyCreations </title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body class="hidden">
+
+   <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <img src="./images/logo.png" class="logo" alt="FaielyCreations Logo">
+    </div>
+    
+    <div class="header-center">
+    </div>
+    
+    <div class="header-right">
+      <a href="./admin.html" class="account">Account</a>
+    </div>
+    <!-- Mobile dropdown -->
+    <nav id="mobile-menu" class="mobile-menu">
+      <a href="./index.html" class="header-link">Home</a>
+      <a href="./admin.html" class="header-link">My Account</a>
+    </nav>
+  </header>
+
+  <!-- ADMIN LOGIN -->
+  <div id="admin-login" class="mode-section fade">
+    <div class="login-container admin">
+      <h2>Admin Login</h2>
+
+      <label>Email</label>
+      <input id="admin-email" type="email">
+
+      <label>Password</label>
+      <div class="password-row">
+        <input id="admin-password" type="password">
+        <button class="small-btn" onclick="togglePassword('admin-password')">Show</button>
+      </div>
+
+      <button onclick="adminLogin()">Login</button>
+      <p id="admin-login-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div id="admin-dashboard" class="mode-section fade">
+    <div class="admin-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar">
+        <h2 class="sidebar-title"> Admin </h2>
+
+        <button class="admin-tab-btn" data-tab="overview">Overview</button>
+        <button class="admin-tab-btn" data-tab="analytics">Analytics</button>
+        <button class="admin-tab-btn" data-tab="users">Users</button>
+
+        <button class="logout-btn" onclick="adminLogout()">Logout</button>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="admin-content">
+
+        <!-- OVERVIEW -->
+        <section id="tab-overview" class="admin-tab-section">
+          <h2>Overview</h2>
+
+          <div class="overview-grid">
+            <div class="card"><h3>Total Customers</h3><p id="ov-customers">0</p></div>
+          </div>
+        </section>
+
+        <!-- ANALYTICS -->
+        <section id="tab-analytics" class="admin-tab-section">
+          <h2>Analytics</h2>
+          <div class="card">
+            <h3>System Health</h3>
+            <p>MongoDB: <span id="health-mongo">...</span></p>
+            <button onclick="loadSystemHealth()">Refresh</button>
+          </div>
+        </section>
+
+        <!-- USERS -->
+        <section id="tab-users" class="admin-tab-section">
+          
+          <section id="tab-customers" class="admin-tab-section">
+            <h2>Customers</h2>
+            <div id="customer-list"></div>
+          </section>
+
+          <section id="tab-admins" class="admin-tab-section">
+            <h2>Admin Accounts</h2>
+            <div id="admin-list"></div>
+
+            <div class="admin-modal-card">
+              <h2>Create New Admin</h2>
+
+              <input id="new-admin-email" placeholder="Admin Email">
+              <input id="new-admin-name" placeholder="Display Name">
+              <input id="new-admin-password" placeholder="Password" type="password">
+              <button type="button" class="small-btn" onclick="togglePassword('new-admin-password')">Show</button>
+              <div id="admin-create-error" class="error"></div>
+              <div id="admin-create-success" style="color:#b57edc;"></div>
+
+              <button onclick="createAdmin()">Create Admin</button>
+            </div>
+          </section>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="admin-frontend.js"></script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <nav class="footer-links">
+      <a href="./index.html">Home</a>
+    </nav>
+    <div class="footer-bottom">
+      <p>© 2026 FaielyCreations L.L.C. </p>
+    </div>
+  </footer>
+</body>
+</html>
